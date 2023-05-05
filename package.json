@@ -1,0 +1,8 @@
+{
+	"name": "webord-plugin",
+	"version": "1.0.0",
+	"main": "index.js",
+	"repository": "https://github.com/webord-saas/webord-plugin",
+	"author": "HeNoMedia / Webord <dev@webord.de>",
+	"license": "MIT"
+}
