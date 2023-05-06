@@ -116,12 +116,38 @@ export let Link = {
   // Navigation
 
   getLinkTree() {
-    const tree = this.categories.map((c) => {
-      return {
-        ...c,
-        links: this.links.filter((l) => l.categoryKey === c.key),
-      };
-    });
+    let tree: object[] = [];
+
+    this.categories
+      .filter((category) => !category.categoryKey)
+      .forEach((category) => {
+        let categoryTree = this.getRecursiveCategory(category.key);
+        tree.push(categoryTree);
+      });
+
     return tree;
+  },
+
+  getRecursiveCategory(categoryKey: string): object {
+    let category = this.categories.find((c) => c.key === categoryKey);
+    let subCategorie: object[] = [];
+
+    if (!category) {
+      throw new Error('Category not found');
+    }
+
+    this.categories
+      .filter((c) => c.categoryKey === categoryKey)
+      .forEach((c) => {
+        let subCategoryTree = this.getRecursiveCategory(c.key);
+
+        subCategorie.push(subCategoryTree);
+      });
+
+    let links = this.links.filter((l) => l.categoryKey === categoryKey);
+
+    category.links = links;
+
+    return { ...category, subCategorie };
   },
 };

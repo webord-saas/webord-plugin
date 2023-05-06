@@ -5,6 +5,7 @@ interface Category {
   description?: string;
   icon?: string;
   categoryKey?: string;
+  links?: LinkList;
 }
 
 type CategoryList = Array<Category>;

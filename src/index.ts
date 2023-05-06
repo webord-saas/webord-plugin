@@ -1,3 +1,4 @@
+import { Actions } from './actions';
 import { Link } from './links';
 
 export let Webord = {
@@ -21,7 +22,9 @@ export let Webord = {
    *  icon: 'test',
    * });
    * */
-  registerCategory: (category: Category) => Link.registerCategory(category),
+  registerCategory(category: Category) {
+    return Link.registerCategory(category);
+  },
 
   /**
    * @param {string} key
@@ -41,7 +44,9 @@ export let Webord = {
    *  icon: 'test',
    * });
    * */
-  updateCategory: (category: Category) => Link.updateCategory(category),
+  updateCategory(category: Category) {
+    return Link.updateCategory(category);
+  },
 
   /**
    * @param {string} key
@@ -49,15 +54,18 @@ export let Webord = {
    * @example
    * Webord.removeCategory('test');
    * */
-  removeCategory: (key: string) => Link.removeCategory(key),
+  removeCategory(key: string) {
+    return Link.removeCategory(key);
+  },
 
   /**
    * @param {string} key
    * @param {string} name
+   * @param {string} categoryKey
+   * @param {Element} component
    * @param {string} description (optional)
    * @param {string} path (optional)
    * @param {string} icon (optional)
-   * @param {string} categoryKey (optional)
    * @returns
    * @memberof Link
    * @example
@@ -65,20 +73,24 @@ export let Webord = {
    *  key: 'test',
    *  name: 'Test',
    *  description: 'Test link',
+   *  component: TestComponent,
    *  path: '/test',
    *  icon: 'test',
    *  categoryKey: 'test',
    * });
    *  */
-  registerLink: (link: Link) => Link.registerLink(link),
+  registerLink(link: Link) {
+    return Link.registerLink(link);
+  },
 
   /**
    * @param {string} key
    * @param {string} name
+   * @param {string} categoryKey
+   * @param {Element} component
    * @param {string} description (optional)
    * @param {string} path (optional)
    * @param {string} icon (optional)
-   * @param {string} categoryKey (optional)
    * @returns
    * @memberof Link
    * @example
@@ -86,12 +98,15 @@ export let Webord = {
    *  key: 'test',
    *  name: 'Test',
    *  description: 'Test link',
+   *  component: TestComponent,
    *  path: '/test',
    *  icon: 'test',
    *  categoryKey: 'test',
    * });
    * */
-  updateLink: (link: Link) => Link.updateLink(link),
+  updateLink(link: Link) {
+    return Link.updateLink(link);
+  },
 
   /**
    * @param {string} key
@@ -99,11 +114,13 @@ export let Webord = {
    * @example
    * Link.removeLink('test');
    * */
-  removeLink: (key: string) => Link.removeLink(key),
+  removeLink(key: string) {
+    return Link.removeLink(key);
+  },
 
-  // Custom Actions
-
-  action: <any>{},
+  getNavigationTree() {
+    return Link.getLinkTree();
+  },
 
   /**
    * @param {string} name
@@ -118,18 +135,7 @@ export let Webord = {
    * });
    * */
   registerAction(action: { name: string; exec: (...args: any[]) => any }) {
-    if (!action.name) {
-      throw new Error('Action name is required');
-    }
-    if (!action.exec) {
-      throw new Error('Action exec is required');
-    }
-
-    if (this.action[action.name]) {
-      throw new Error('Action name already exists');
-    }
-
-    this.action[action.name] = action.exec;
+    return Actions.registerAction(action);
   },
 
   /**
@@ -141,10 +147,6 @@ export let Webord = {
    * Webord.useAction('test', 'World');
    * */
   useAction(actionName: string, ...args: any[]) {
-    if (!this.action[actionName]) {
-      throw new Error('Action not found');
-    }
-
-    return this.action[actionName](...args);
+    return Actions.useAction(actionName, ...args);
   },
 };

@@ -83,3 +83,14 @@ test('Webord-Category', () => {
     { categoryKey: 'test', description: 'Test category', icon: 'test', key: 'test2', name: 'Test2', path: '/test2' },
   ]);
 });
+
+test('Webord-CustomAction', () => {
+  Webord.registerAction({
+    name: 'customAction',
+    exec: function (data) {
+      return `Hello ${data}!`;
+    },
+  });
+
+  expect(Webord.useAction('customAction', 'World')).toBe('Hello World!');
+});
