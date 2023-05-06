@@ -1,54 +1,55 @@
+import { Link } from './links';
+
 export let Webord = {
+  // Links
+
   /**
    * @param {string} key
    * @param {string} name
-   * @param {string} description (optional)
    * @param {string} path
+   * @param {string} description (optional)
    * @param {string} icon (optional)
    * @param {string} categoryKey (optional)
-   */
-  categories: <CategoryList>[],
+   * @returns
+   * @memberof Category
+   * @example
+   * Webord.registerCategory({
+   *  key: 'test',
+   *  name: 'Test',
+   *  description: 'Test category',
+   *  path: '/test',
+   *  icon: 'test',
+   * });
+   * */
+  registerCategory: (category: Category) => Link.registerCategory(category),
 
-  registerCategory(category: Category) {
-    if (!category.key) {
-      throw new Error('Category key is required');
-    }
-    if (!category.name) {
-      throw new Error('Category name is required');
-    }
-    if (!category.path) {
-      throw new Error('Category path is required');
-    }
+  /**
+   * @param {string} key
+   * @param {string} name
+   * @param {string} path
+   * @param {string} description (optional)
+   * @param {string} icon (optional)
+   * @param {string} categoryKey (optional)
+   * @returns
+   * @memberof Category
+   * @example
+   * Webord.updateCategory({
+   *  key: 'test',
+   *  name: 'Test',
+   *  description: 'Test category',
+   *  path: '/test',
+   *  icon: 'test',
+   * });
+   * */
+  updateCategory: (category: Category) => Link.updateCategory(category),
 
-    if (this.categories.find((c) => c.key === category.key)) {
-      throw new Error('Category key already exists');
-    }
-
-    if (category.categoryKey) {
-      const parent = this.categories.find((c) => c.key === category.categoryKey);
-      if (!parent) {
-        throw new Error('Category parent not found');
-      }
-    }
-
-    this.categories.push(category);
-  },
-
-  updateCategory(category: Category) {
-    const index = this.categories.findIndex((c) => c.key === category.key);
-    if (index === -1) {
-      throw new Error('Category not found');
-    }
-    this.categories[index] = category;
-  },
-
-  removeCategory(categoryKey: string) {
-    const index = this.categories.findIndex((c) => c.key === categoryKey);
-    if (index === -1) {
-      throw new Error('Category not found');
-    }
-    this.categories.splice(index, 1);
-  },
+  /**
+   * @param {string} key
+   * @memberof Category
+   * @example
+   * Webord.removeCategory('test');
+   * */
+  removeCategory: (key: string) => Link.removeCategory(key),
 
   /**
    * @param {string} key
@@ -56,68 +57,94 @@ export let Webord = {
    * @param {string} description (optional)
    * @param {string} path (optional)
    * @param {string} icon (optional)
-   * @param {string} categoryKey
-   */
-  links: <LinkList>[],
+   * @param {string} categoryKey (optional)
+   * @returns
+   * @memberof Link
+   * @example
+   * Link.registerLink({
+   *  key: 'test',
+   *  name: 'Test',
+   *  description: 'Test link',
+   *  path: '/test',
+   *  icon: 'test',
+   *  categoryKey: 'test',
+   * });
+   *  */
+  registerLink: (link: Link) => Link.registerLink(link),
 
-  registerLink(link: Link) {
-    if (!link.key) {
-      throw new Error('Link key is required');
+  /**
+   * @param {string} key
+   * @param {string} name
+   * @param {string} description (optional)
+   * @param {string} path (optional)
+   * @param {string} icon (optional)
+   * @param {string} categoryKey (optional)
+   * @returns
+   * @memberof Link
+   * @example
+   * Link.updateLink({
+   *  key: 'test',
+   *  name: 'Test',
+   *  description: 'Test link',
+   *  path: '/test',
+   *  icon: 'test',
+   *  categoryKey: 'test',
+   * });
+   * */
+  updateLink: (link: Link) => Link.updateLink(link),
+
+  /**
+   * @param {string} key
+   * @memberof Link
+   * @example
+   * Link.removeLink('test');
+   * */
+  removeLink: (key: string) => Link.removeLink(key),
+
+  // Custom Actions
+
+  action: <any>{},
+
+  /**
+   * @param {string} name
+   * @param {(...args: any[]) => any} exec
+   * @memberof Webord
+   * @example
+   * Webord.registerAction({
+   *  name: 'test',
+   *  exec: (foo) => {
+   *    console.log(`Hello ${foo}!`);
+   *  },
+   * });
+   * */
+  registerAction(action: { name: string; exec: (...args: any[]) => any }) {
+    if (!action.name) {
+      throw new Error('Action name is required');
     }
-    if (!link.name) {
-      throw new Error('Link name is required');
-    }
-    if (!link.categoryKey) {
-      throw new Error('Link categoryKey is required');
-    }
-    if (!link.path) {
-      link.path = '/' + link.key;
+    if (!action.exec) {
+      throw new Error('Action exec is required');
     }
 
-    if (this.links.find((l) => l.key === link.key)) {
-      throw new Error('Link key already exists');
+    if (this.action[action.name]) {
+      throw new Error('Action name already exists');
     }
 
-    if (!this.categories.find((c) => c.key === link.categoryKey)) {
-      throw new Error('Link category not found');
-    }
-
-    this.links.push(link);
+    this.action[action.name] = action.exec;
   },
 
-  updateLink(link: Link) {
-    const index = this.links.findIndex((l) => l.key === link.key);
-    if (index === -1) {
-      throw new Error('Link not found');
+  /**
+   * @param {string} name
+   * @param {...any[]} args
+   * @returns
+   * @memberof Webord
+   * @example
+   * Webord.useAction('test', 'World');
+   * */
+  useAction(actionName: string, ...args: any[]) {
+    if (!this.action[actionName]) {
+      throw new Error('Action not found');
     }
-    this.links[index] = link;
-  },
 
-  removeLink(linkKey: string) {
-    const index = this.links.findIndex((l) => l.key === linkKey);
-    if (index === -1) {
-      throw new Error('Link not found');
-    }
-    this.links.splice(index, 1);
-  },
-
-  // Navigation
-
-  getLinkTree() {
-    const tree = this.categories.map((c) => {
-      return {
-        ...c,
-        links: this.links.filter((l) => l.categoryKey === c.key),
-      };
-    });
-    return tree;
-  },
-
-  // Plugins
-
-  plugins: <WebordPluginList>{},
-
-  registerPlugin(plugin: WebordPlugin) {
-    this.plugins[plugin.pluginName] = plugin;
+    return this.action[actionName](...args);
   },
 };

@@ -3,15 +3,15 @@ import { Webord } from '../src/index';
 test('Webord-Category', () => {
   // Create a category
 
-  Webord.registerCategory({
-    key: 'test',
-    name: 'Test',
-    description: 'Test category',
-    path: '/test',
-    icon: 'test',
-  });
-
-  expect(Webord.categories).toEqual([
+  expect(
+    Webord.registerCategory({
+      key: 'test',
+      name: 'Test',
+      description: 'Test category',
+      path: '/test',
+      icon: 'test',
+    }),
+  ).toEqual([
     {
       key: 'test',
       name: 'Test',
@@ -46,7 +46,7 @@ test('Webord-Category', () => {
   }).toThrow('Category parent not found');
 
   // Update a category with valid parent
-  expect(() => {
+  expect(
     Webord.registerCategory({
       key: 'test2',
       name: 'Test2',
@@ -54,20 +54,23 @@ test('Webord-Category', () => {
       path: '/test2',
       icon: 'test',
       categoryKey: 'test',
-    });
-  }).not.toThrow();
+    }),
+  ).toEqual([
+    { description: 'Test category', icon: 'test', key: 'test', name: 'Test', path: '/test' },
+    { categoryKey: 'test', description: 'Test category', icon: 'test', key: 'test2', name: 'Test2', path: '/test2' },
+  ]);
 
   // Update a category
 
-  Webord.updateCategory({
-    key: 'test',
-    name: 'Test Edited',
-    description: 'Test category edited',
-    path: '/test-edited',
-    icon: 'test',
-  });
-
-  expect(Webord.categories[0]).toEqual({
+  expect(
+    Webord.updateCategory({
+      key: 'test',
+      name: 'Test Edited',
+      description: 'Test category edited',
+      path: '/test-edited',
+      icon: 'test',
+    })[0],
+  ).toEqual({
     key: 'test',
     name: 'Test Edited',
     description: 'Test category edited',
@@ -76,9 +79,7 @@ test('Webord-Category', () => {
   });
 
   // Remove a category
-
-  Webord.removeCategory('test');
-  Webord.removeCategory('test2');
-
-  expect(Webord.categories).toEqual([]);
+  expect(Webord.removeCategory('test')).toEqual([
+    { categoryKey: 'test', description: 'Test category', icon: 'test', key: 'test2', name: 'Test2', path: '/test2' },
+  ]);
 });

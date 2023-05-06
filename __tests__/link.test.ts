@@ -12,7 +12,7 @@ test('Webord-Link', () => {
   });
 
   // Create a link
-  Webord.registerLink({
+  let links = Webord.registerLink({
     key: 'test',
     name: 'Test',
     categoryKey: 'test',
@@ -21,7 +21,7 @@ test('Webord-Link', () => {
     icon: 'test',
   });
 
-  expect(Webord.links).toEqual([
+  expect(links).toEqual([
     {
       key: 'test',
       name: 'Test',
@@ -56,7 +56,7 @@ test('Webord-Link', () => {
     });
   }).toThrow('Link category not found');
 
-  Webord.registerLink({
+  links = Webord.registerLink({
     key: 'test2',
     name: 'Test2',
     categoryKey: 'test',
@@ -64,7 +64,7 @@ test('Webord-Link', () => {
     icon: 'test',
   });
 
-  expect(Webord.links).toEqual([
+  expect(links).toEqual([
     {
       key: 'test',
       name: 'Test',
