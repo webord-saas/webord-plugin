@@ -1,4 +1,7 @@
-export let Link = {
+import { Category, CategoryList } from './interface/Category';
+import { Link, LinkList } from './interface/Link';
+
+export let Links = {
   /**
    * @param {string} key
    * @param {string} name

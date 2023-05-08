@@ -1,4 +1,4 @@
-interface Link {
+export interface Link {
   key: string;
   name: string;
   categoryKey: string;
@@ -8,4 +8,4 @@ interface Link {
   icon?: string;
 }
 
-type LinkList = Array<Link>;
+export type LinkList = Array<Link>;

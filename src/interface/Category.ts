@@ -1,4 +1,6 @@
-interface Category {
+import { LinkList } from './Link';
+
+export interface Category {
   key: string;
   name: string;
   path: string;
@@ -8,4 +10,4 @@ interface Category {
   links?: LinkList;
 }
 
-type CategoryList = Array<Category>;
+export type CategoryList = Array<Category>;

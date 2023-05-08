@@ -1,5 +1,8 @@
 import { Actions } from './actions';
-import { Link } from './links';
+import { Links } from './links';
+
+import { Category } from './interface/Category';
+import { Link } from './interface/Link';
 
 export let Webord = {
   // Links
@@ -23,7 +26,7 @@ export let Webord = {
    * });
    * */
   registerCategory(category: Category) {
-    return Link.registerCategory(category);
+    return Links.registerCategory(category);
   },
 
   /**
@@ -45,7 +48,7 @@ export let Webord = {
    * });
    * */
   updateCategory(category: Category) {
-    return Link.updateCategory(category);
+    return Links.updateCategory(category);
   },
 
   /**
@@ -55,7 +58,7 @@ export let Webord = {
    * Webord.removeCategory('test');
    * */
   removeCategory(key: string) {
-    return Link.removeCategory(key);
+    return Links.removeCategory(key);
   },
 
   /**
@@ -80,7 +83,7 @@ export let Webord = {
    * });
    *  */
   registerLink(link: Link) {
-    return Link.registerLink(link);
+    return Links.registerLink(link);
   },
 
   /**
@@ -105,7 +108,7 @@ export let Webord = {
    * });
    * */
   updateLink(link: Link) {
-    return Link.updateLink(link);
+    return Links.updateLink(link);
   },
 
   /**
@@ -115,11 +118,11 @@ export let Webord = {
    * Link.removeLink('test');
    * */
   removeLink(key: string) {
-    return Link.removeLink(key);
+    return Links.removeLink(key);
   },
 
   getNavigationTree() {
-    return Link.getLinkTree();
+    return Links.getLinkTree();
   },
 
   /**
