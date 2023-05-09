@@ -4,7 +4,7 @@ import { Links } from './links';
 import { Category } from './interface/Category';
 import { Link } from './interface/Link';
 
-export let Webord = {
+let Webord = {
   // Links
 
   /**
@@ -153,3 +153,10 @@ export let Webord = {
     return Actions.useAction(actionName, ...args);
   },
 };
+
+declare const window: any;
+if (typeof window !== 'undefined') {
+  window.WebordPlugin = Webord;
+}
+
+export default Webord;
