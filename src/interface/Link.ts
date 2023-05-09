@@ -1,5 +1,3 @@
-import React = require('react');
-
 export interface Link {
   key: string;
   name: string;
