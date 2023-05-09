@@ -4,10 +4,7 @@ export interface Link {
   key: string;
   name: string;
   categoryKey: string;
-  component?:
-    | HTMLElement
-    | string
-    | (() => React.DetailedReactHTMLElement<React.HTMLAttributes<HTMLElement>, HTMLElement>);
+  component?: any;
   description?: string;
   path?: string;
   icon?: string;
