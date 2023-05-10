@@ -1,10 +1,12 @@
 import { Actions } from './actions';
 import { Links } from './links';
 
-import { Category } from './interface/Category';
+import { Category, CategoryList } from './interface/Category';
 import { Link } from './interface/Link';
 
 let Webord = {
+  navigationGotUpdated: 0,
+
   // Links
 
   /**
@@ -26,6 +28,7 @@ let Webord = {
    * });
    * */
   registerCategory(category: Category) {
+    this.navigationGotUpdated = Date.now();
     return Links.registerCategory(category);
   },
 
@@ -48,6 +51,7 @@ let Webord = {
    * });
    * */
   updateCategory(category: Category) {
+    this.navigationGotUpdated = Date.now();
     return Links.updateCategory(category);
   },
 
@@ -58,6 +62,7 @@ let Webord = {
    * Webord.removeCategory('test');
    * */
   removeCategory(key: string) {
+    this.navigationGotUpdated = Date.now();
     return Links.removeCategory(key);
   },
 
@@ -83,6 +88,7 @@ let Webord = {
    * });
    *  */
   registerLink(link: Link) {
+    this.navigationGotUpdated = Date.now();
     return Links.registerLink(link);
   },
 
@@ -108,6 +114,7 @@ let Webord = {
    * });
    * */
   updateLink(link: Link) {
+    this.navigationGotUpdated = Date.now();
     return Links.updateLink(link);
   },
 
@@ -118,6 +125,7 @@ let Webord = {
    * Link.removeLink('test');
    * */
   removeLink(key: string) {
+    this.navigationGotUpdated = Date.now();
     return Links.removeLink(key);
   },
 
@@ -154,9 +162,4 @@ let Webord = {
   },
 };
 
-declare const window: any;
-if (typeof window !== 'undefined') {
-  window.WebordPlugin = Webord;
-}
-
-export default Webord;
+export { Webord };
