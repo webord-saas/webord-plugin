@@ -116,6 +116,10 @@ export let Links = {
     return this.links;
   },
 
+  getLinkByPath(path: string) {
+    return this.links.find((l) => l.path === path);
+  },
+
   // Navigation
 
   getLinkTree() {
