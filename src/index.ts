@@ -6,7 +6,6 @@ import { Link } from './interface/Link';
 
 let Webord = {
   navigationGotUpdated: 0,
-
   // Links
 
   /**
@@ -127,6 +126,16 @@ let Webord = {
   removeLink(key: string) {
     this.navigationGotUpdated = this.navigationGotUpdated + 1;
     return Links.removeLink(key);
+  },
+
+  /**
+   * @param {string} path
+   * @memberof Link
+   * @example
+   * Link.getLinkByPath('/test');
+   * */
+  getLinkByPath(path: string) {
+    return Links.getLinkByPath(path);
   },
 
   getNavigationTree() {
