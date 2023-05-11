@@ -5,7 +5,6 @@ import { Category, CategoryList } from './interface/Category';
 import { Link } from './interface/Link';
 
 let Webord = {
-  navigationGotUpdated: 0,
   // Links
 
   /**
@@ -27,7 +26,6 @@ let Webord = {
    * });
    * */
   registerCategory(category: Category) {
-    this.navigationGotUpdated = this.navigationGotUpdated + 1;
     return Links.registerCategory(category);
   },
 
@@ -50,7 +48,6 @@ let Webord = {
    * });
    * */
   updateCategory(category: Category) {
-    this.navigationGotUpdated = this.navigationGotUpdated + 1;
     return Links.updateCategory(category);
   },
 
@@ -61,7 +58,6 @@ let Webord = {
    * Webord.removeCategory('test');
    * */
   removeCategory(key: string) {
-    this.navigationGotUpdated = this.navigationGotUpdated + 1;
     return Links.removeCategory(key);
   },
 
@@ -87,7 +83,6 @@ let Webord = {
    * });
    *  */
   registerLink(link: Link) {
-    this.navigationGotUpdated = this.navigationGotUpdated + 1;
     return Links.registerLink(link);
   },
 
@@ -113,7 +108,6 @@ let Webord = {
    * });
    * */
   updateLink(link: Link) {
-    this.navigationGotUpdated = this.navigationGotUpdated + 1;
     return Links.updateLink(link);
   },
 
@@ -124,7 +118,6 @@ let Webord = {
    * Link.removeLink('test');
    * */
   removeLink(key: string) {
-    this.navigationGotUpdated = this.navigationGotUpdated + 1;
     return Links.removeLink(key);
   },
 

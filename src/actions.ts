@@ -20,7 +20,7 @@ export let Actions = {
 
   useAction(actionName: string, ...args: any[]) {
     if (!this.action[actionName]) {
-      throw new Error('Action not found');
+      return;
     }
 
     return this.action[actionName](...args);
