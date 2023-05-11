@@ -109,7 +109,7 @@ export let Links = {
   removeLink(linkKey: string) {
     const index = this.links.findIndex((l) => l.key === linkKey);
     if (index === -1) {
-      throw new Error('Link not found');
+      return;
     }
     this.links.splice(index, 1);
 
